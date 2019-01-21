@@ -6,6 +6,8 @@
 # Open any molecule
 
 indexer = SAMSON.getNodes('n.t atom')                   # get all atom nodes
+
+if indexer.size == 0: pass
  
 direction = ['x','y','z']
 ipos = 0;                                               # parameter that determines the coordinate according to which the colorization should be done
