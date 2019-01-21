@@ -1,13 +1,17 @@
-# This example shows how to colorize atoms
-# based on their position (x, y, or z)
+'''
+This example shows how to colorize atoms
+based on their position (x, y, or z)
 
-# see: https://documentation.samson-connect.net/scripting-guide/colorization/
+see: https://documentation.samson-connect.net/scripting-guide/colorization/
 
-# Open any molecule
+Open any molecule in SAMSON
+'''
+
+class HaltException(Exception): pass
 
 indexer = SAMSON.getNodes('n.t atom')                   # get all atom nodes
 
-if indexer.size == 0: pass
+if indexer.size == 0: HaltException('No atoms found in the active document')
  
 direction = ['x','y','z']
 ipos = 0;                                               # parameter that determines the coordinate according to which the colorization should be done
