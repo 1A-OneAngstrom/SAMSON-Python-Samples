@@ -1,5 +1,5 @@
-# This example demonstrates how to rotate a camera in SAMSON,
-# capture screenshots, and create a movie
+# This example demonstrates how to create an animation in SAMSON
+# by rotating a camera, capturing screenshots, and creating a movie
 
 # See: https://documentation.samson-connect.net/scripting-guide/using-camera-and-producing-animations/
 
@@ -20,14 +20,14 @@ def rotate(camera, velocity, center):
         SAMSON.processEvents()
 
 
-camera = SAMSON.getActiveCamera()                                           # get the active camera
-camera.center()                                                             # centers the camera
-#camera.frontView()                                                          # set the view of the camera
-SAMSON.processEvents()                                                      # process events: updates viewport
+camera = SAMSON.getActiveCamera()                                               # get the active camera
+camera.center()                                                                 # centers the camera
+#camera.frontView()                                                             # set the view of the camera
+SAMSON.processEvents()                                                          # process events: updates viewport
 
-indexer = SAMSON.getNodes('n.t a')                                          # get all atoms
+indexer = SAMSON.getNodes('n.t a')                                              # get all atoms
 
-centerOfMass = np.zeros(3)                                                  # compute center of mass
+centerOfMass = np.zeros(3)                                                      # compute center of mass
 for a in indexer:
     centerOfMass[0] += a.getX().value;
     centerOfMass[1] += a.getY().value;
@@ -37,11 +37,11 @@ centerOfMass /= indexer.size
 
 center = Type.length3(Quantity.length(centerOfMass[0]), Quantity.length(centerOfMass[1]), Quantity.length(centerOfMass[2]))  # center of the molecule
 
-velocity = pi * 1./180.;                                                    # rotation velocity
+velocity = pi * 1./180.;                                                        # rotation velocity
 velocity3 = Type.radianPerSecond3(Quantity.radPerS(0), Quantity.radPerS(velocity), Quantity.radPerS(0)) # rotation is only in y-direction
 
 pathToFile = '/tmp/camera/'
-try:                                                                        # try to create a tmp folder
+try:                                                                            # try to create a tmp folder
     os.mkdir(pathToFile)
 except:
     pass
