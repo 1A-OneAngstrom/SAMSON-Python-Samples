@@ -1,5 +1,13 @@
 '''
 Export trajectory from a SAMSON path into files
+
+Examples of usage:
+
+pathindexer = SAMSON.getNodes('n.t path')                               # get all paths in the active document
+if pathindexer.size > 0:
+    path = pathindexer[0]                                               # take the first path
+    export_to_PDB(path, filename)                                       # export the path to a pdb file
+    
 '''
 
 from samson.Facade import SAMSON
@@ -11,7 +19,7 @@ def export_trajectory(sbpath, filename, fileformat):
     sbpath.currentStep = 0                                              # set currentStep for the Path to 0
     trajectory_files = []
         
-    indexer = SAMSON.getNodes('n.t sm')                                 # get a node indexer for all atoms
+    indexer = SAMSON.getNodes('n.t sm')                                 # get a node indexer for all structural models
     
     if indexer.size > 0:
         for step in range(sbpath.numberOfSteps):                        # loop over steps in the Path

@@ -48,34 +48,31 @@ class ExampleASEOptimizationH20:
         
         def initialize_system_samson(self):
                 '''
-                Adds atoms created by ASE into a new layer in SAMSON
+                Adds atoms created by ASE into the active document in SAMSON
                 '''
-                document = SAMSON.getActiveDocument()                           # get the active document
-                layer = sam.DataModel.Document.Layer('ase H2O opt')             # a new layer
-                layer.create()                                                  # create it in SAMSON
-                document.addChild(layer)                                        # add this layer to the active document
                 structural_model = sam.Modeling.StructuralModel.StructuralModel() # a new structural model
                 structural_model.create()                                       # create this structural model in SAMSON
-                layer.addChild(structural_model)                                # add the structural model into the layer
-                structural_root = structural_model.getStructuralRoot()          # get the root of the structural model
+                structural_model.name = 'H20 opt'
+                document = SAMSON.getActiveDocument()                           # get the active document
+                document.addChild(structural_model)                             # add the structural model into the active document
 
-                self.add_atoms_in_samson(structural_root, self.molecule)        # add atoms in SAMSON
+                self.add_atoms_in_samson(structural_model, self.molecule)       # add atoms in SAMSON
                 
-                self.indexer = structural_root.getNodes('n.t a')                # get a list of all atoms in the structural_root
+                self.indexer = structural_model.getNodes('n.t a')               # get a list of all atoms in the structural_model
                 
                 SAMSON.getActiveCamera().topView()                              # set a camera view in SAMSON
         
-        def add_atoms_in_samson(self, structural_root, molecule):
+        def add_atoms_in_samson(self, structural_model, molecule):
                 '''
                 Add atoms in SAMSON according to their type and positions
                 '''
-                for a in molecule:                                             # loop through a list of atoms created by ase
+                for a in molecule:                                              # loop through a list of atoms created by ase
                         sa = sam.Modeling.StructuralModel.Atom(SAMSON.getElementTypeBySymbol(a.symbol),
                                 sam.DataModel.Quantity.angstrom(a.position[0]),
                                 sam.DataModel.Quantity.angstrom(a.position[1]),
                                 sam.DataModel.Quantity.angstrom(a.position[2])) # construct an atom in SAMSON with a given element type and position
                         sa.create()                                             # create an atom in SAMSON
-                        structural_root.addChild( sa )                          # add an atom to the root of the structural model
+                        structural_model.addChild( sa )                         # add an atom to the root of the structural model
 
         def update_positions_samson(self):
                 '''
@@ -92,7 +89,7 @@ class ExampleASEOptimizationH20:
 
 
 # Create an object of the ExampleASEOptimizationH20 class, which will initialize ASE and SAMSON.
-# After this step, you will see a water molecule in the SAMSON’s viewport in a newly created layer
+# After this step, you will see a water molecule in the SAMSON’s viewport and in the active document
 ase_h20_opt = ExampleASEOptimizationH20()
 SAMSON.processEvents()          # process events: updates viewport
 ase_h20_opt.compute()           # run the computations

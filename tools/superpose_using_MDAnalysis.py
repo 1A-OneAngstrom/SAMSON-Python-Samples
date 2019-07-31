@@ -8,7 +8,7 @@ See: https://documentation.samson-connect.net/scripting-guide/analyzing-trajecto
 Superposition of structure: https://www.mdanalysis.org/MDAnalysisTutorial/analysismodule.html
 
 '''
-
+import os
 import MDAnalysis
 from MDAnalysis.analysis import align, rms
 
