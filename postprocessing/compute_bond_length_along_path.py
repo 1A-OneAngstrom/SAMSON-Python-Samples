@@ -38,6 +38,9 @@ def compute_bond_length_stats_per_path(path, bond_indexer):
 	
 	return bond_length_along_path
 
+# Open a molecule with a path
+SAMSON.importFromFile(os.path.dirname(path_to_pyscript) + '/../samples/1VPK-path.sam')
+SAMSON.processEvents()
 
 path_indexer = SAMSON.getNodes('n.t path')										# get an indexer of all paths in the active document
 bond_indexer = SAMSON.getNodes('n.t bond')										# get an indexer of all bands in the active document

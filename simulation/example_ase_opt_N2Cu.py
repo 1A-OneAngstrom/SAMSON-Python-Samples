@@ -77,23 +77,20 @@ class ExampleASEOptimizationN2Cu:
                 '''
                 Adds atoms created by ASE into a new layer in SAMSON
                 '''
-                document = SAMSON.getActiveDocument()                           # get the active document
-                layer = sam.DataModel.Document.Layer('ase slab opt')            # a new layer
-                layer.create()                                                  # create it in SAMSON
-                document.addChild(layer)                                        # add this layer to the active document
                 structural_model = sam.Modeling.StructuralModel.StructuralModel() # a new structural model
                 structural_model.create()                                       # create this structural model in SAMSON
-                layer.addChild(structural_model)                                # add the structural model into the layer
-                structural_root = structural_model.getStructuralRoot()          # get the root of the structural model
+                structural_model.name = 'ase slab opt'
+                document = SAMSON.getActiveDocument()                           # get the active document
+                document.addChild(structural_model)                             # add the structural model into the active document
 
-                self.add_atoms_in_samson(structural_root, self.slab)            # add slab atoms in SAMSON
-                self.add_atoms_in_samson(structural_root, self.molecule)        # add molecule atoms in SAMSON
+                self.add_atoms_in_samson(structural_model, self.slab)           # add slab atoms in SAMSON
+                self.add_atoms_in_samson(structural_model, self.molecule)       # add molecule atoms in SAMSON
                 
-                self.indexer = structural_root.getNodes('n.t a and N')          # get a list of all Nitrogen atoms in the structural_root
+                self.indexer = structural_model.getNodes('n.t a and N')         # get a list of all Nitrogen atoms in the structural_model
                 
                 SAMSON.getActiveCamera().leftView()                             # set a camera view in SAMSON
         
-        def add_atoms_in_samson(self, structural_root, molecule):
+        def add_atoms_in_samson(self, structural_model, molecule):
                 '''
                 Add atoms in SAMSON according to their type and positions
                 '''
@@ -103,7 +100,7 @@ class ExampleASEOptimizationN2Cu:
                                 sam.DataModel.Quantity.angstrom(a.position[1]),
                                 sam.DataModel.Quantity.angstrom(a.position[2])) # construct an atom in SAMSON with a given element type and position
                         sa.create()                                             # create an atom in SAMSON
-                        structural_root.addChild( sa )                          # add an atom to the root of the structural model
+                        structural_model.addChild( sa )                         # add an atom to the root of the structural model
 
         def update_positions_samson(self):
                 '''
@@ -119,7 +116,7 @@ class ExampleASEOptimizationN2Cu:
                 SAMSON.processEvents()                                          # process all events in SAMSON (to update positions in the viewport)
 
 # Create an object of the ExampleASEOptimizationH20 class, which will initialize ASE and SAMSON.
-# After this step, you will see Nitrogen and Copper molecules in the SAMSON’s viewport in a newly created layer
+# After this step, you will see Nitrogen and Copper molecules in the SAMSON’s viewport and in the active document
 ase_N2Cu_opt = ExampleASEOptimizationN2Cu()
 SAMSON.processEvents()                          # process events: updates viewport
 ase_N2Cu_opt.compute_adsorption_energy()        # compute the adsorption energy

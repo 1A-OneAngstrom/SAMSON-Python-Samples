@@ -105,7 +105,7 @@ class ExampleASECalculator:
 
 def samson_add_simulator(simulator):
         '''
-        Initialize and add simulator in the active layer of the active document in SAMSON 
+        Initialize and add simulator in the active document in SAMSON 
         To add a simulator in SAMSON we need to create and add a dynamical model, an interaction model, and a state updater.
         '''
         dynamicalModel = simulator.getDynamicalModel()                  # get the dynamical model from the simulator
@@ -122,14 +122,14 @@ def samson_add_simulator(simulator):
 
         simulator.create()                                              # create the simulator
 
-        activeLayer = SAMSON.getActiveLayer()
+        document = SAMSON.getActiveDocument()                           # get the active document in SAMSON
         SAMSON.beginHolding('Add simulator')                            # holding: take care of undo/redo in SAMSON
         SAMSON.hold(dynamicalModel)                                     # hold an object for undo/redo in SAMSON
-        activeLayer.addChild(dynamicalModel)                            # add the dynamical model to the active layer of the active document in SAMSON
+        document.addChild(dynamicalModel)                               # add the dynamical model to the active document in SAMSON
         SAMSON.hold(interactionModel)
-        activeLayer.addChild(interactionModel)                          # add the interaction model to the active layer of the active document in SAMSON
+        document.addChild(interactionModel)                             # add the interaction model to the active document in SAMSON
         SAMSON.hold(simulator)
-        activeLayer.addChild(simulator)                                 # add the simulator to the active layer of the active document in SAMSON
+        document.addChild(simulator)                                    # add the simulator to the active document in SAMSON
         SAMSON.endHolding()
 
 
@@ -145,7 +145,7 @@ IMuuid = sam.Core.Container.UUID('AD608CB6-6971-7CD4-6FCC-34531998E743')        
 SUuuid = sam.Core.Container.UUID('F912F119-7CBB-B5BD-972A-0A02DFCF683D')        # UUID of the State Updater pack SAMSON Element
 simulator = SAMSON.makeSimulator(indexer, 'SMMBrennerInteractionModel', IMuuid, 'SESInteractiveModelingUpdater', SUuuid)        # make an instance of a simulator
 
-samson_add_simulator(simulator)         # add the simulator to the active layer in the active document in SAMSON
+samson_add_simulator(simulator)         # add the simulator in the active document in SAMSON
 
 # Run ASE calculations
 ase_calc = ExampleASECalculator()       # Create an object of the ExampleASECalculator class, which will initialize system in ASE and in SAMSON

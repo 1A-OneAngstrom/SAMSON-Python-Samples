@@ -43,6 +43,9 @@ def compute_min_interatomic_distance_per_path(path, atom_indexer, rcutoff = Quan
 	
 	return interatomic_length
 
+# Open a molecule with a path
+SAMSON.importFromFile(os.path.dirname(path_to_pyscript) + '/../samples/1VPK-path.sam')
+SAMSON.processEvents()
 
 path_indexer = SAMSON.getNodes('n.t path')										# get an indexer of all paths in the active document
 atom_indexer = SAMSON.getNodes('n.t atom')										# get an indexer of all atoms in the active document
