@@ -1,0 +1,1 @@
+This folder contains python scripts showing how to select and use selections in SAMSON.
