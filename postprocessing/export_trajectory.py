@@ -28,7 +28,7 @@ def export_trajectory(sbpath, filename, fileformat):
             fn = filename + str(step) + '.' + fileformat                # a name of a file 
             trajectory_files.append(fn)                                 # append list of trajectory files
             
-            SAMSON.exportToFile(indexer, fn, '')                        # export current trajectory into a file 'fn'
+            SAMSON.exportToFile(indexer, fn, [])                        # export current trajectory into a file 'fn'
             
     return trajectory_files                                             # return list of trajectory files
 
