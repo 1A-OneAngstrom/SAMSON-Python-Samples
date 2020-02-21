@@ -135,7 +135,7 @@ def samson_add_simulator(simulator):
 
 # Open a hydrocarbon molecule
 path_to_pyscript = os.path.realpath(__file__)
-SAMSON.importFromFile(os.path.dirname(path_to_pyscript) + '/../samples/Cyclopropane.pdb', '')
+SAMSON.importFromFile(os.path.dirname(path_to_pyscript) + '/../samples/Cyclopropane.pdb', [])
 SAMSON.processEvents()
 
 # Apply a simulator to this molecule

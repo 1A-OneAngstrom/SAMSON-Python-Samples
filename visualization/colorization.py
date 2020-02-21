@@ -28,7 +28,7 @@ for atom in indexer:                                    # compute minimal and ma
  
 for atom in indexer:                                    # colorize each atom according to its coordinate
                                                         # get RGB color for a node based on HSV color
-    color = sam.DataModel.Color.Color.fromHSV(239.5 / 360.0 * (atom.getPosition()[ipos].value - minx) / (maxx - minx), 205.0/255.0, 1.0);
+    color = sam.DataModel.Type.Color.fromHSV(239.5 / 360.0 * (atom.getPosition()[ipos].value - minx) / (maxx - minx), 205.0/255.0, 1.0);
     atom.setColor(color);                               # set the color of the node
  
 SAMSON.setBusy(False)                                   # SAMSON is not busy anymore

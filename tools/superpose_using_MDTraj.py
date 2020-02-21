@@ -37,9 +37,9 @@ mob_indexer = mob.getNodes()
 filename_ref = path_to_files + '/ref.pdb'
 filename_mob = path_to_files + '/mob.pdb'
 
-SAMSON.exportToFile(ref_indexer, filename_ref, '')                      # export the reference structure
+SAMSON.exportToFile(ref_indexer, filename_ref, [])                      # export the reference structure
                                                                         # the third input parameter is for options used for importing: '' is for default
-SAMSON.exportToFile(mob_indexer, filename_mob, '')                      # export the structure which should be rotated
+SAMSON.exportToFile(mob_indexer, filename_mob, [])                      # export the structure which should be rotated
 
 t_ref = mdtraj.load(filename_ref)                                       # load the reference into MDTraj
 t_mob = mdtraj.load(filename_mob)                                       # load the molecule which needs to be superposed
@@ -49,5 +49,5 @@ t_mob.superpose(t_ref)                                                  # superp
 filename_mob_superposed = path_to_files + '/mob_superposed_on_ref_mdtraj.pdb'
 t_mob.save(filename_mob_superposed)
 
-SAMSON.importFromFile(filename_mob_superposed, '')                      # import the superposed structure into SAMSON
+SAMSON.importFromFile(filename_mob_superposed, [])                      # import the superposed structure into SAMSON
 SAMSON.processEvents()
